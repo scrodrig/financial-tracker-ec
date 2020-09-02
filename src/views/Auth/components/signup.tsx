@@ -14,7 +14,7 @@ interface FormItems {
     password: string;
 }
 
-const SignUp = () => {
+const SignUp: React.FunctionComponent = () => {
     const authContext = useContext(AuthContext);
     const [values, setValues] = useState({
         username: '',
