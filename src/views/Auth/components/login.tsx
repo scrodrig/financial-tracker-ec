@@ -4,6 +4,8 @@ import 'firebase/firestore';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { AuthContext } from '../../../AuthProvider';
+import Button from '@material-ui/core/Button';
+import { VpnKeyTwoTone } from '@material-ui/icons';
 import firebase from '../../../firebase';
 import { useHistory } from 'react-router-dom';
 
@@ -162,7 +164,10 @@ const Login = () => {
                 />
                 <br />
                 <br />
-                <button>Login</button>
+                {/* <button>Login</button> */}
+                <Button type="submit" variant="contained" color="primary" endIcon={<VpnKeyTwoTone />}>
+                    Login
+                </Button>
                 <p>Not logged in yet?</p>
                 <button onClick={handleClick}>SignUp</button> <br />
                 <br />
