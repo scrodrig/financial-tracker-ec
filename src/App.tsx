@@ -1,5 +1,3 @@
-import './App.css';
-
 import ApplicationRoutes from './config/ApplicationRoutes';
 import { AuthProvider } from './AuthProvider';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,7 +12,9 @@ function App() {
             <AuthProvider>
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
-                    <ApplicationRoutes />
+                    <div className="w-max h-screen bg-gray-800">
+                        <ApplicationRoutes />
+                    </div>
                 </ThemeProvider>
             </AuthProvider>
         </div>

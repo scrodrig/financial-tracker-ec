@@ -1,10 +1,10 @@
 import 'firebase/auth';
 import 'firebase/firestore';
 
+import { Button, TextField } from '@material-ui/core';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { AuthContext } from '../../../AuthProvider';
-import Button from '@material-ui/core/Button';
 import { VpnKeyTwoTone } from '@material-ui/icons';
 import firebase from '../../../firebase';
 import { useHistory } from 'react-router-dom';
@@ -79,12 +79,8 @@ const Login = () => {
         history.push('/auth/signup');
     };
 
-    const handleChange = (event: any) => {
-        event.persist();
-        setValues(values => ({
-            ...values,
-            [event.target.name]: event.target.value
-        }));
+    const onChange = (event: any) => {
+        setValues({ ...values, [event.target.name]: event.target.value });
     };
 
     const handleSubmit = (event: any) => {
@@ -143,37 +139,65 @@ const Login = () => {
     }
 
     return (
-        <div style={{ textAlign: 'center' }}>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="email"
-                    value={values.email}
-                    placeholder="Enter your Email"
-                    onChange={handleChange}
-                />
-                <br />
-                <br />
-                <input
-                    type="password"
-                    name="password"
-                    value={values.password}
-                    placeholder="Enter your Password"
-                    onChange={handleChange}
-                />
-                <br />
-                <br />
-                {/* <button>Login</button> */}
-                <Button type="submit" variant="contained" color="primary" endIcon={<VpnKeyTwoTone />}>
-                    Login
-                </Button>
-                <p>Not logged in yet?</p>
-                <button onClick={handleClick}>SignUp</button> <br />
-                <br />
-            </form>
-
-            <p>Social SignUp</p>
+        <div className="Login h-full" style={{ background: 'url("/images/landing.jpg")' }}>
+            <div className="flex justify-center items-center h-full">
+                <div />
+                <div className="lg:w-1/5">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="opacity-90 bg-gradient-to-br from-white via-gray-100 to-gray-500 rounded px-8 py-8 pt-8"
+                    >
+                        <div className="py-4">
+                            <TextField
+                                type="email"
+                                name="email"
+                                fullWidth
+                                value={values.email}
+                                label="Email"
+                                variant="outlined"
+                                placeholder="jonhdoe@example.com"
+                                onChange={event => onChange(event)}
+                            />
+                        </div>
+                        <div className="py-4">
+                            <TextField
+                                type="password"
+                                name="password"
+                                fullWidth
+                                value={values.password}
+                                label="Password"
+                                variant="outlined"
+                                placeholder="Enter your password"
+                                onChange={onChange}
+                            />
+                        </div>
+                        <div className="py-4 text-center">
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                endIcon={<VpnKeyTwoTone />}
+                            >
+                                Login
+                            </Button>
+                        </div>
+                        <div className="py-4 text-center">
+                            <p>Not logged in yet?</p>
+                            <Button
+                                onClick={handleClick}
+                                variant="contained"
+                                color="secondary"
+                                fullWidth
+                                endIcon={<VpnKeyTwoTone />}
+                            >
+                                SignUp
+                            </Button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {/* <p>Social SignUp</p>
             <button onClick={() => handleSocialClick('Facebook')}>SignIn with Facebook</button>
             <br />
             <br />
@@ -182,7 +206,7 @@ const Login = () => {
             <br />
             <button onClick={() => handleSocialClick('Twitter')}>SignIn with Twitter</button>
             <br />
-            <br />
+            <br /> */}
         </div>
     );
 };
