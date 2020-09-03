@@ -2,10 +2,10 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 import { Button, TextField } from '@material-ui/core';
+import { ContactMail, VpnKeyTwoTone } from '@material-ui/icons';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { AuthContext } from '../../../AuthProvider';
-import { VpnKeyTwoTone } from '@material-ui/icons';
 import firebase from '../../../firebase';
 import { useHistory } from 'react-router-dom';
 
@@ -186,7 +186,7 @@ const Login = () => {
                                 variant="contained"
                                 color="secondary"
                                 fullWidth
-                                endIcon={<VpnKeyTwoTone />}
+                                endIcon={<ContactMail />}
                             >
                                 SignUp
                             </Button>
