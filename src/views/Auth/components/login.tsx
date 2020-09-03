@@ -143,10 +143,7 @@ const Login = () => {
             <div className="flex justify-center items-center h-full">
                 <div />
                 <div className="lg:w-1/5">
-                    <form
-                        onSubmit={handleSubmit}
-                        className="opacity-90 bg-gradient-to-br from-white via-gray-100 to-gray-500 rounded px-8 py-8 pt-8"
-                    >
+                    <form onSubmit={handleSubmit} className="opacity-90 bg-white rounded px-8 py-8 pt-8">
                         <div className="py-4">
                             <TextField
                                 type="email"
