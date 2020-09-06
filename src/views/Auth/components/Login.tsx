@@ -1,9 +1,10 @@
 import 'firebase/auth';
 import 'firebase/firestore';
 
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, CircularProgress } from '@material-ui/core';
 import { ContactMail, VpnKeyTwoTone } from '@material-ui/icons';
 import React, { useContext, useEffect, useState } from 'react';
+import LoadingBar from '../../../components/utils/LoadingBar';
 
 import { AuthContext } from '../../../AuthProvider';
 import firebase from '../../../firebase';
@@ -17,7 +18,7 @@ interface UserData {
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const Login = () => {
     const authContext = useContext(AuthContext);
-    const { loadingAuthState } = useContext(AuthContext);
+    const { loadingAuthState, authenticated } = useContext(AuthContext);
     const history = useHistory();
     const [values, setValues] = useState({
         email: '',
@@ -72,8 +73,11 @@ const Login = () => {
             .catch(error => {
                 console.log(error, 'error');
             });
-        // eslint-disable-next-line
-    }, []);
+
+        if (authenticated) {
+            redirectToTargetPage();
+        }
+    }, [authenticated]);
 
     const handleClick = () => {
         history.push('/auth/signup');
@@ -131,11 +135,7 @@ const Login = () => {
     };
 
     if (loadingAuthState) {
-        return (
-            <div>
-                <h1>Loading...</h1>
-            </div>
-        );
+        return <LoadingBar />;
     }
 
     return (

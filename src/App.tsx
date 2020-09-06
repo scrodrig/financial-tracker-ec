@@ -12,7 +12,7 @@ function App() {
             <AuthProvider>
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
-                    <div className="w-max h-screen bg-gray-800">
+                    <div className="w-max h-screen">
                         <ApplicationRoutes />
                     </div>
                 </ThemeProvider>

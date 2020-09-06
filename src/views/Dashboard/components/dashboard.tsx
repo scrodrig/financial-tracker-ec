@@ -14,7 +14,6 @@ const Dashboard = () => {
 
     const handleClick = (event: any) => {
         event.preventDefault();
-
         firebase
             .auth()
             .signOut()
@@ -65,6 +64,7 @@ const Dashboard = () => {
                 </div>
             ) : (
                 <div>
+                    <button onClick={handleClick}>Logout</button>
                     <button onClick={handleVerification}>Send email</button>
                 </div>
             )}

@@ -1,12 +1,12 @@
-import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import React from 'react';
+import { AuthRoutes } from '../views/Auth';
+import { DashboardRoutes } from '../views/Dashboard';
 
-import { AuthRoutes } from '../views/Auth'
-import { DashboardRoutes } from '../views/Dashboard'
-import PrivateRoute from '../PrivateRoute'
-import React from 'react'
+import PrivateRoute from '../PrivateRoute';
 
 const ApplicationRoutes = () => {
-    return (
+       return (
         <Router>
             <Switch>
                 <PrivateRoute exact path="/dashboard" component={DashboardRoutes} />
@@ -14,6 +14,6 @@ const ApplicationRoutes = () => {
                 <Redirect to="/auth" from="/" />
             </Switch>
         </Router>
-    )
-}
-export default ApplicationRoutes
+    );
+};
+export default ApplicationRoutes;

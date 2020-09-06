@@ -1,7 +1,7 @@
 import { Login, SignUp } from "../../Auth/components";
 import { Redirect, Route, Switch } from "react-router-dom";
 
-import React from "react";
+import React, { useContext, useEffect, useState } from 'react';
 
 export const AuthRoutes = () => {
     return (
