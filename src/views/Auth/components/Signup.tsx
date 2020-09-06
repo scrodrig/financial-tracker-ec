@@ -20,7 +20,8 @@ const SignUp: React.FunctionComponent = () => {
         username: '',
         email: '',
         password: '',
-        phone: ''
+        phone: '',
+        emailVerified: false
     } as FormItems);
 
     const history = useHistory();
@@ -40,6 +41,9 @@ const SignUp: React.FunctionComponent = () => {
     const handleSubmit = (event: any) => {
         event?.preventDefault();
         console.log(values, 'values');
+
+        // firebase.auth().doSendEmailVerification();
+
         firebase
             .auth()
             .createUserWithEmailAndPassword(values.email, values.password)

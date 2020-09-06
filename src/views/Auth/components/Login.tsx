@@ -141,7 +141,6 @@ const Login = () => {
     return (
         <div className="Login h-full" style={{ background: 'url("/images/landing.jpg")' }}>
             <div className="flex justify-center items-center h-full">
-                <div />
                 <div className="lg:w-1/5">
                     <form onSubmit={handleSubmit} className="opacity-90 bg-white rounded px-8 py-8 pt-8">
                         <div className="py-4">
@@ -194,16 +193,6 @@ const Login = () => {
                     </form>
                 </div>
             </div>
-            {/* <p>Social SignUp</p>
-            <button onClick={() => handleSocialClick('Facebook')}>SignIn with Facebook</button>
-            <br />
-            <br />
-            <button onClick={() => handleSocialClick('Google')}>SignIn with Google</button>
-            <br />
-            <br />
-            <button onClick={() => handleSocialClick('Twitter')}>SignIn with Twitter</button>
-            <br />
-            <br /> */}
         </div>
     );
 };
