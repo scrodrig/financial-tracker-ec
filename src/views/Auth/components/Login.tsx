@@ -1,7 +1,7 @@
 import 'firebase/auth';
 import 'firebase/firestore';
 
-import { Button, TextField, CircularProgress } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { ContactMail, VpnKeyTwoTone } from '@material-ui/icons';
 import React, { useContext, useEffect, useState } from 'react';
 import LoadingBar from '../../../components/utils/LoadingBar';
@@ -94,7 +94,6 @@ const Login = () => {
             .auth()
             .signInWithEmailAndPassword(values.email, values.password)
             .then(res => {
-                console.log(res, 'res');
                 authContext.setUser(res);
                 history.push('/dashboard');
             })
@@ -102,32 +101,6 @@ const Login = () => {
                 console.log(error.message);
                 alert(error.message);
             });
-    };
-
-    const handleSocialClick = (sns: any) => {
-        console.log(sns, 'sns');
-
-        let provider: firebase.auth.AuthProvider;
-        switch (sns) {
-            case 'Facebook':
-                provider = new firebase.auth.FacebookAuthProvider();
-                console.log(provider, 'fbprovider');
-                break;
-
-            case 'Google':
-                provider = new firebase.auth.GoogleAuthProvider();
-                console.log(provider, 'gprovider');
-                break;
-
-            case 'Twitter':
-                provider = new firebase.auth.TwitterAuthProvider();
-                break;
-
-            default:
-                throw new Error('Unsupported SNS' + sns);
-        }
-
-        firebase.auth().signInWithRedirect(provider).catch(handleAuthError);
     };
 
     const handleAuthError = (error: firebase.auth.Error) => {
@@ -148,6 +121,7 @@ const Login = () => {
                                 type="email"
                                 name="email"
                                 fullWidth
+                                required
                                 value={values.email}
                                 label="Email"
                                 variant="outlined"
@@ -160,6 +134,7 @@ const Login = () => {
                                 type="password"
                                 name="password"
                                 fullWidth
+                                required
                                 value={values.password}
                                 label="Password"
                                 variant="outlined"

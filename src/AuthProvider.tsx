@@ -19,20 +19,18 @@ export const AuthProvider = ({ children }: any) => {
         firebase.auth().onAuthStateChanged((user: any) => {
             setUser(user);
             setLoadingAuthState(false);
-            console.log(user, 'ap user');
-            console.log(user !== null, 'ap authenticated');
         });
     }, []);
 
     return (
-        <AuthContext.Provider 
+        <AuthContext.Provider
             value={{
                 user,
                 authenticated: user !== null,
                 setUser,
                 loadingAuthState
             }}>
-                {children}
+            {children}
         </AuthContext.Provider>
     );
 }
