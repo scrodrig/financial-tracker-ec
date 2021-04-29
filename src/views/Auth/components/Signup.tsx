@@ -2,7 +2,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 import { Button, TextField } from '@material-ui/core';
-import { ContactMail, VpnKeyTwoTone } from '@material-ui/icons';
+import { ContactMail, Email, VpnKeyTwoTone } from '@material-ui/icons';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { AuthContext } from '../../../AuthProvider';
@@ -56,8 +56,12 @@ const SignUp: React.FunctionComponent = () => {
 
     const handleSubmit = (event: any) => {
         event?.preventDefault();
-        const { password, confirmPassword} = values
-        if(!passwordMatches(password, confirmPassword)){
+        const { password, confirmPassword, email } = values
+        if (!validateEmail(email)) {
+            console.error('It is not a valid email');
+            return
+        }
+        if (!passwordMatches(password, confirmPassword)) {
             console.error('Passwords are not matching');
             return
         }
@@ -71,7 +75,7 @@ const SignUp: React.FunctionComponent = () => {
                 db.collection('Users')
                     .doc(userCredential.user!.uid)
                     .set({
-                        email: values.email,
+                        email: String(values.email).toLocaleLowerCase(),
                         firstName: values.firstName,
                         phone: values.phone
                     })
@@ -86,8 +90,18 @@ const SignUp: React.FunctionComponent = () => {
             });
     };
 
-    const passwordMatches = (password:string, repeatedPassword:string) => {
+    const passwordMatches = (password: string, repeatedPassword: string) => {
         return password === repeatedPassword
+    }
+
+    const validatePassword = (password: string) => {
+        const re = /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/;
+        return re.test(password);
+    }
+
+    const validateEmail = (email: string) => {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
     }
 
     if (loadingAuthState) {
@@ -127,6 +141,7 @@ const SignUp: React.FunctionComponent = () => {
                         </div>
                         <div className="py-4">
                             <TextField
+                                error={values.email !== '' && !validateEmail(values.email)}
                                 type="email"
                                 name="email"
                                 fullWidth
@@ -140,6 +155,7 @@ const SignUp: React.FunctionComponent = () => {
                         </div>
                         <div className="py-4">
                             <TextField
+                                error={values.password !== '' && !validatePassword(values.password)}
                                 type="password"
                                 name="password"
                                 fullWidth
@@ -153,6 +169,7 @@ const SignUp: React.FunctionComponent = () => {
                         </div>
                         <div className="py-4">
                             <TextField
+                                error={values.confirmPassword !== '' && !validatePassword(values.confirmPassword)}
                                 type="password"
                                 name="confirmPassword"
                                 fullWidth
@@ -170,7 +187,7 @@ const SignUp: React.FunctionComponent = () => {
                                 fullWidth
                                 variant="contained"
                                 color="primary"
-                                endIcon={<VpnKeyTwoTone />}
+                                endIcon={<ContactMail />}
                             >
                                 Sign Up
                     </Button>
@@ -182,7 +199,7 @@ const SignUp: React.FunctionComponent = () => {
                                 variant="contained"
                                 color="secondary"
                                 fullWidth
-                                endIcon={<ContactMail />}
+                                endIcon={<VpnKeyTwoTone />}
                             >
                                 Login
                     </Button>
