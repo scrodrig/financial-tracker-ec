@@ -1,0 +1,1 @@
+export { InvoiceRoutes } from "../Invoice/config/InvoiceRoutes";
