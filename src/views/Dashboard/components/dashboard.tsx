@@ -8,11 +8,12 @@ import { useHistory } from 'react-router-dom';
 
 const Dashboard = () => {
     const [userName, setUserName] = useState();
+    const [salary, setSalary] = useState();
     const [phoneNumber, setPhoneNumber] = useState();
     const history = useHistory();
     const needsEmailAuthentication = firebase.auth().currentUser?.emailVerified || false;
 
-    const handleClick = (event: any) => {
+    const handleLogout = (event: any) => {
         event.preventDefault();
         firebase
             .auth()
@@ -38,6 +39,10 @@ const Dashboard = () => {
             });
     };
 
+    const redirectToProfilePage = () => {
+        history.push('/profile');
+    };
+
     useEffect(() => {
         const db = firebase.firestore();
         db.collection('Users')
@@ -48,8 +53,19 @@ const Dashboard = () => {
                 if (user) {
                     setUserName(user['username']);
                     setPhoneNumber(user['phone']);
+                    setSalary(user['salary']);
+                }
+            })
+            .then(() => {
+                console.log('salary', salary)
+                if (!salary) {
+                    redirectToProfilePage()
                 }
             });
+        // console.log('salary');
+        // if (!salary) {
+        //     redirectToProfilePage();
+        // }
     }, []);
 
     return (
@@ -60,11 +76,11 @@ const Dashboard = () => {
                     <h2>Welcome to Dashboard!</h2>
                     <h3>{userName}</h3>
                     <h3>{phoneNumber}</h3>
-                    <button onClick={handleClick}>Logout</button>
+                    <button onClick={handleLogout}>Logout</button>
                 </div>
             ) : (
                 <div>
-                    <button onClick={handleClick}>Logout</button>
+                    <button onClick={handleLogout}>Logout</button>
                     <button onClick={handleVerification}>Send email</button>
                 </div>
             )}
