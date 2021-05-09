@@ -39,7 +39,7 @@ const SignUp: React.FunctionComponent = () => {
     }, [authenticated]);
 
     const redirectToTargetPage = () => {
-        history.push('/dashboard');
+        history.push('/profile');
     };
 
     const handleClick = () => {
@@ -65,7 +65,6 @@ const SignUp: React.FunctionComponent = () => {
             console.error('Passwords are not matching');
             return
         }
-        console.log(values, 'values');
         firebase
             .auth()
             .createUserWithEmailAndPassword(values.email, values.password)
