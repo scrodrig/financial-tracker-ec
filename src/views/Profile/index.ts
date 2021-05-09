@@ -1,0 +1,1 @@
+export { ProfileRoutes } from "../Profile/config/ProfileRoutes";
